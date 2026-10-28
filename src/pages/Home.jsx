@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -108,6 +109,7 @@ const features = [
 export default function Home() {
   const [prompt, setPrompt] = useState("");
   const [activeDestination, setActiveDestination] = useState("Goa");
+  const navigate = useNavigate();
 
   function startPlanning(value = prompt) {
     const query = value.trim();
@@ -117,10 +119,11 @@ export default function Home() {
       return;
     }
 
-    // UI stage: connect this action to login and the planner later.
-    window.location.href = `/login?next=${encodeURIComponent(
-      "/planner?prompt=" + query
-    )}`;
+    navigate(
+      `/login?next=${encodeURIComponent(
+        "/planner?prompt=" + query
+      )}`
+    );
   }
 
   return (
@@ -153,12 +156,12 @@ export default function Home() {
             </p>
 
             <div className="hero-actions">
-              <a href="/login" className="primary-button">
+              <Link to="/login" className="primary-button">
                 Sign In & Start Planning <ArrowRight size={18} />
-              </a>
-              <a href="#how-it-works" className="secondary-button">
+              </Link>
+              <Link to="#how-it-works" className="secondary-button">
                 See how it works <ArrowDownRight size={17} />
-              </a>
+              </Link>
             </div>
 
             <div className="hero-trust">
@@ -275,9 +278,9 @@ export default function Home() {
 
         <div className="hero-bottom-line">
           <span>AI-POWERED PLANNING. LESS TRAVEL STRESS.</span>
-          <a href="#destinations">
+          <Link to="#destinations">
             SCROLL TO EXPLORE <ArrowDownRight size={15} />
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -303,7 +306,7 @@ export default function Home() {
           </div>
 
           <div className="destination-grid">
-            {destinations.map((destination, index) => (
+            {destinations.map((destination) => (
               <button
                 className={`destination-card ${
                   activeDestination === destination.name ? "destination-active" : ""
@@ -342,9 +345,9 @@ export default function Home() {
             <span>
               <Compass size={17} /> Have another destination in mind?
             </span>
-            <a href="/login">
+            <Link to="/login">
               Plan a trip your way <ArrowRight size={16} />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -398,9 +401,9 @@ export default function Home() {
               <strong>The AI decides what to call next.</strong>
               <p>It uses the information already available and dynamically determines the next action.</p>
             </div>
-            <a href="/login" className="process-banner-link">
+            <Link to="/login" className="process-banner-link">
               Start planning <ArrowRight size={17} />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -423,9 +426,9 @@ export default function Home() {
               information already available and dynamically determines the next
               action.
             </p>
-            <a href="/login" className="primary-button">
+            <Link to="/login" className="primary-button">
               Explore the AI workflow <ArrowRight size={18} />
-            </a>
+            </Link>
 
             <div className="intelligence-footnote">
               <Check size={17} />
@@ -543,9 +546,9 @@ export default function Home() {
             Sign in to start an AI-powered planning session and let Trip Planner
             take care of the details.
           </p>
-          <a href="/login" className="primary-button">
+          <Link to="/login" className="primary-button">
             Sign In & Start Planning <ArrowRight size={18} />
-          </a>
+          </Link>
           <span className="cta-note">
             <Check size={14} /> Sign in to start your personalised trip
           </span>

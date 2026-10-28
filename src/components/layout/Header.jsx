@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 import { Compass, Menu, X } from "lucide-react";
 import { useState } from "react";
 import "./Header.css";
@@ -9,35 +9,35 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="nav-container">
-        <a href="/" className="brand">
+        <Link to="/" className="brand">
           <span className="brand-icon">
             <Compass size={23} strokeWidth={2.3} />
           </span>
           <span>trip<span className="brand-accent">mate</span></span>
-        </a>
+        </Link>
 
         <nav className={`nav-links ${menuOpen ? "nav-open" : ""}`}>
-          <a href="#destinations" onClick={() => setMenuOpen(false)}>
+          <Link to="#destinations" onClick={() => setMenuOpen(false)}>
             Destinations
-          </a>
-          <a href="#how-it-works" onClick={() => setMenuOpen(false)}>
+          </Link>
+          <Link to="#how-it-works" onClick={() => setMenuOpen(false)}>
             How it works
-          </a>
-          <a href="#features" onClick={() => setMenuOpen(false)}>
+          </Link>
+          <Link to="#features" onClick={() => setMenuOpen(false)}>
             Features
-          </a>
+          </Link>
 
           <div className="mobile-auth">
-            <a className="nav-login" href="/login">Log in</a>
-            <a className="nav-signup" href="/signup">Get started <span>↗</span></a>
+            <Link className="nav-login" to="/login">Log in</Link>
+            <Link className="nav-signup" to="/signup">Get started <span>↗</span></Link>
           </div>
         </nav>
 
         <div className="nav-actions">
-          <a className="nav-login" href="/login">Log in</a>
-          <a className="nav-signup" href="/signup">
+          <Link className="nav-login" to="/login">Log in</Link>
+          <Link className="nav-signup" to="/signup">
             Get started <span>↗</span>
-          </a>
+          </Link>
         </div>
 
         <button

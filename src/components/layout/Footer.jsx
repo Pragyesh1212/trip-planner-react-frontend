@@ -1,17 +1,18 @@
 import { ArrowUpRight, Compass,Camera, Users, Globe } from "lucide-react";
 import "./Footer.css";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-main">
         <div className="footer-brand-column">
-          <a href="/" className="brand footer-brand">
+          <Link to="/" className="brand footer-brand">
             <span className="brand-icon">
               <Compass size={22} />
             </span>
             <span>trip<span className="brand-accent">mate</span></span>
-          </a>
+          </Link>
 
           <p>
             Less planning stress. More unforgettable places.
@@ -19,30 +20,30 @@ export default function Footer() {
           </p>
 
           <div className="footer-socials">
-            <a href="https://www.instagram.com/" aria-label="Instagram">
+            <Link to="https://www.instagram.com/" aria-label="Instagram">
               <Camera size={18} />
-            </a>
-            <a href="https://www.linkedin.com/" aria-label="LinkedIn">
+            </Link>
+            <Link to="https://www.linkedin.com/" aria-label="LinkedIn">
               <Users size={18} />
-            </a>
-            <a href="https://twitter.com/" aria-label="Twitter">
+            </Link>
+            <Link to="https://twitter.com/" aria-label="Twitter">
               <Globe size={18} />
-            </a>
+            </Link>
           </div>
         </div>
 
         <div className="footer-column">
           <h4>Explore</h4>
-          <a href="#destinations">Destinations</a>
-          <a href="#how-it-works">How it works</a>
-          <a href="#features">Features</a>
+          <Link to="#destinations">Destinations</Link>
+          <Link to="#how-it-works">How it works</Link>
+          <Link to="#features">Features</Link>
         </div>
 
         <div className="footer-column">
           <h4>Your journey</h4>
-          <a href="/login">Start planning <ArrowUpRight size={14} /></a>
-          <a href="/signup">Create account <ArrowUpRight size={14} /></a>
-          <a href="/login">Sign in <ArrowUpRight size={14} /></a>
+          <Link to="/login">Start planning <ArrowUpRight size={14} /></Link>
+          <Link to="/signup">Create account <ArrowUpRight size={14} /></Link>
+          <Link to="/login">Sign in <ArrowUpRight size={14} /></Link>
         </div>
       </div>
 
