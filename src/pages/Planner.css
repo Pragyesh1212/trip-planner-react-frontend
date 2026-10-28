@@ -1,0 +1,435 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --planner-blue: #2563eb;
+  --planner-blue-dark: #1748b5;
+  --planner-blue-soft: #eff6ff;
+  --planner-ink: #111827;
+  --planner-muted: #6b7280;
+  --planner-line: #e5e7eb;
+  --planner-sidebar: #f8fafc;
+}
+.planner-shell, .planner-shell * { box-sizing: border-box; }
+.planner-shell {
+  height: 100dvh; min-height: 600px; width: 100%; display: flex; overflow: hidden;
+  color: var(--planner-ink); background: #fff; font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
+}
+.planner-sidebar {
+  width: 286px; min-width: 286px; display: flex; flex-direction: column; padding: 20px 14px 14px;
+  border-right: 1px solid var(--planner-line); background: var(--planner-sidebar); transition: width .2s ease, min-width .2s ease;
+}
+.planner-sidebar--collapsed { width: 76px; min-width: 76px; padding-inline: 10px; }
+.planner-brand-row { display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 4px; }
+.planner-brand-mark { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; color: #fff; background: var(--planner-blue); flex: 0 0 auto; }
+.planner-brand-name { font-weight: 800; font-size: 21px; letter-spacing: -1px; flex: 1; white-space: nowrap; }
+.planner-brand-name span { color: var(--planner-blue); }
+.planner-icon-button { border: 0; background: transparent; color: #6b7280; display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; cursor: pointer; flex: 0 0 auto; }
+.planner-icon-button:hover { background: #eaf0f8; color: var(--planner-ink); }
+.planner-collapse-button { margin-left: auto; }
+.planner-new-chat { margin: 28px 0 25px; width: 100%; display: flex; align-items: center; gap: 10px; padding: 12px 13px; border: 1px solid #dbeafe; background: #fff; color: var(--planner-blue-dark); border-radius: 12px; font: inherit; font-weight: 700; cursor: pointer; box-shadow: 0 1px 2px #0f172a08; }
+.planner-new-chat:hover { background: var(--planner-blue-soft); border-color: #bfdbfe; }
+.planner-sidebar--collapsed .planner-new-chat { justify-content: center; padding: 12px 0; }
+.planner-shortcut { margin-left: auto; border: 1px solid #dbeafe; border-radius: 5px; padding: 0 6px; color: #64748b; font-size: 13px; }
+.planner-history-label { padding: 0 9px 10px; color: #9ca3af; font-size: 10px; font-weight: 800; letter-spacing: 1.3px; }
+.planner-history-list { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
+.planner-history-item { display: flex; align-items: center; border-radius: 9px; gap: 2px; min-width: 0; }
+.planner-history-item:hover, .planner-history-item.is-active { background: #eaf2ff; }
+.planner-history-open { min-width: 0; flex: 1; display: flex; align-items: center; gap: 9px; padding: 10px 9px; border: 0; background: transparent; text-align: left; color: #4b5563; font: inherit; cursor: pointer; }
+.planner-history-item.is-active .planner-history-open { color: #1d4ed8; font-weight: 700; }
+.planner-history-open span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 12px; }
+.planner-history-delete { border: 0; background: transparent; color: #9ca3af; border-radius: 7px; padding: 7px; cursor: pointer; opacity: 0; }
+.planner-history-item:hover .planner-history-delete { opacity: 1; }
+.planner-history-delete:hover { color: #dc2626; background: #fff; }
+.planner-history-status { display: flex; gap: 8px; align-items: center; color: var(--planner-muted); padding: 12px 8px; font-size: 12px; }
+.planner-empty-history { padding: 0 9px; color: #9ca3af; font-size: 12px; line-height: 1.6; }
+.planner-sidebar-bottom { display: flex; align-items: center; gap: 10px; padding: 13px 3px 0; border-top: 1px solid var(--planner-line); margin-top: 12px; }
+.planner-user-avatar { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: #dbeafe; color: #1d4ed8; font-weight: 800; flex: 0 0 auto; }
+.planner-user-copy { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.planner-user-copy strong { font-size: 11px; white-space: nowrap; }
+.planner-user-copy span { color: #9ca3af; font-size: 10px; }
+.planner-logout { margin-left: auto; }
+.planner-sidebar--collapsed .planner-sidebar-bottom { flex-wrap: wrap; justify-content: center; }
+.planner-sidebar--collapsed .planner-logout { margin: 0; }
+.planner-main { flex: 1; min-width: 0; display: flex; flex-direction: column; background: #fff; }
+.planner-topbar { height: 82px; flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 clamp(20px, 4vw, 56px); border-bottom: 1px solid #f1f5f9; }
+.planner-topbar-left { display: flex; align-items: center; gap: 13px; min-width: 0; }
+.planner-topbar h1 { margin: 4px 0 0; font-size: 18px; line-height: 1.25; font-weight: 800; letter-spacing: -.45px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.planner-eyebrow { font-size: 9px; letter-spacing: 1.45px; font-weight: 800; color: #94a3b8; }
+.planner-secure-label { display: flex; align-items: center; gap: 8px; border: 1px solid #e5e7eb; border-radius: 999px; padding: 8px 11px; color: #64748b; font-size: 11px; white-space: nowrap; }
+.planner-secure-label span { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
+.planner-expand-mobile { display: none; }
+.planner-chat-area { flex: 1; min-height: 0; overflow-y: auto; scroll-behavior: smooth; }
+.planner-welcome { width: min(730px, calc(100% - 44px)); margin: clamp(35px, 8vh, 84px) auto 40px; text-align: center; }
+.planner-welcome-icon { width: 54px; height: 54px; display: grid; place-items: center; margin: 0 auto 23px; color: var(--planner-blue); border: 1px solid #dbeafe; border-radius: 18px; background: #f8fbff; box-shadow: 0 8px 28px #2563eb0b; }
+.planner-welcome-kicker { margin: 0 0 14px; color: var(--planner-blue); font-size: 10px; font-weight: 800; letter-spacing: 1.65px; }
+.planner-welcome h2 { margin: 0; font-size: clamp(32px, 4vw, 48px); line-height: 1.12; letter-spacing: -2px; font-weight: 800; }
+.planner-welcome h2 span { color: var(--planner-blue); }
+.planner-welcome-description { max-width: 530px; margin: 18px auto 30px; color: #6b7280; font-size: 13px; line-height: 1.8; }
+.planner-prompt-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; max-width: 640px; margin: 0 auto; text-align: left; }
+.planner-prompt-card { display: flex; align-items: center; gap: 11px; min-width: 0; padding: 15px 14px; border: 1px solid #e5eaf1; border-radius: 13px; background: #fff; color: #475569; text-align: left; font: inherit; font-size: 11px; font-weight: 700; cursor: pointer; transition: border .15s, transform .15s, box-shadow .15s; }
+.planner-prompt-card > svg:first-child { color: var(--planner-blue); flex: 0 0 auto; }
+.planner-prompt-card:hover { border-color: #bfdbfe; box-shadow: 0 8px 22px #2563eb0d; transform: translateY(-1px); }
+.planner-prompt-arrow { margin-left: auto; color: #9ca3af; flex: 0 0 auto; }
+.planner-messages { max-width: 860px; margin: 0 auto; padding: 34px 28px 28px; display: flex; flex-direction: column; gap: 28px; }
+.planner-message { display: flex; gap: 12px; align-items: flex-start; }
+.planner-message--user { justify-content: flex-end; }
+.planner-assistant-avatar { width: 30px; height: 30px; border-radius: 10px; background: #eff6ff; color: var(--planner-blue); display: grid; place-items: center; flex: 0 0 auto; }
+.planner-message-body { min-width: 0; max-width: min(680px, 88%); }
+.planner-message--user .planner-message-body { display: flex; flex-direction: column; align-items: flex-end; }
+.planner-message-author { margin: 0 0 7px; color: #64748b; font-size: 10px; font-weight: 800; letter-spacing: .3px; }
+.planner-message-bubble { white-space: pre-wrap; overflow-wrap: anywhere; color: #374151; font-size: 13px; line-height: 1.8; }
+.planner-message--user .planner-message-bubble { padding: 12px 15px; border-radius: 16px 16px 4px 16px; background: #eff6ff; color: #1e3a8a; }
+.planner-extras { display: flex; flex-direction: column; gap: 10px; margin-top: 13px; }
+.planner-result-card { border: 1px solid #e5eaf1; border-radius: 13px; padding: 14px; background: #fff; }
+.planner-result-heading { display: flex; align-items: center; gap: 8px; color: var(--planner-blue); font-size: 12px; margin-bottom: 11px; }
+.planner-result-heading strong { color: #1f2937; }
+.planner-result-heading span { margin-left: auto; color: #64748b; font-size: 10px; }
+.planner-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.planner-detail { display: flex; flex-direction: column; gap: 4px; }
+.planner-detail span { color: #9ca3af; font-size: 10px; text-transform: capitalize; }
+.planner-detail strong { color: #374151; font-size: 11px; text-transform: capitalize; }
+.planner-options-list { display: flex; flex-direction: column; }
+.planner-option { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid #f1f5f9; }
+.planner-option:first-child { border-top: 0; }
+.planner-option-icon { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 9px; background: #eff6ff; color: var(--planner-blue); flex: 0 0 auto; }
+.planner-option-copy { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; }
+.planner-option-copy strong { font-size: 11px; color: #374151; overflow-wrap: anywhere; }
+.planner-option-copy span { font-size: 10px; color: #9ca3af; }
+.planner-option-price { font-size: 11px; color: #1d4ed8; white-space: nowrap; }
+.planner-more-options { margin: 6px 0 0; color: #9ca3af; font-size: 10px; }
+.planner-date-option { padding: 10px 0; border-top: 1px solid #f1f5f9; color: #475569; font-size: 11px; }
+.planner-next-step { display: inline-flex; align-items: center; gap: 7px; margin-top: 12px; padding: 7px 10px; border-radius: 8px; background: #f8fafc; color: #64748b; font-size: 10px; text-transform: capitalize; }
+.planner-loading-line { display: flex; gap: 12px; align-items: flex-start; }
+.planner-typing { display: flex; gap: 4px; padding: 12px 0; }
+.planner-typing i { width: 6px; height: 6px; border-radius: 50%; background: #93c5fd; animation: planner-bounce 1s infinite ease-in-out; }
+.planner-typing i:nth-child(2) { animation-delay: .15s; }.planner-typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes planner-bounce { 0%, 60%, 100% { transform: translateY(0); opacity: .55; } 30% { transform: translateY(-4px); opacity: 1; } }
+.planner-composer-wrap { flex: 0 0 auto; width: min(860px, calc(100% - 48px)); margin: 0 auto; padding: 10px 0 16px; }
+.planner-composer { padding: 12px 12px 10px 17px; border: 1px solid #dbe2ec; border-radius: 17px; background: #fff; box-shadow: 0 8px 28px #0f172a08; transition: border .15s, box-shadow .15s; }
+.planner-composer:focus-within { border-color: #93c5fd; box-shadow: 0 0 0 3px #dbeafe80, 0 8px 28px #0f172a08; }
+.planner-composer textarea { width: 100%; resize: vertical; min-height: 34px; max-height: 140px; border: 0; outline: 0; color: #1f2937; font: inherit; font-size: 12px; line-height: 1.7; background: transparent; }
+.planner-composer textarea::placeholder { color: #9ca3af; }
+.planner-composer-bottom { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 7px; }
+.planner-composer-bottom:has(.planner-date-controls) { justify-content: space-between; }
+.planner-composer-bottom:not(:has(.planner-date-controls)) { justify-content: flex-end; }
+.planner-date-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.planner-date-controls label { display: flex; align-items: center; gap: 5px; color: #9ca3af; font-size: 10px; }
+.planner-date-controls input { width: 115px; border: 0; outline: 0; color: #64748b; background: transparent; font: inherit; font-size: 10px; }
+.planner-send-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 10px 14px; border: 0; border-radius: 10px; color: #fff; background: var(--planner-blue); font: inherit; font-size: 11px; font-weight: 700; cursor: pointer; }
+.planner-send-button:hover:not(:disabled) { background: var(--planner-blue-dark); }
+.planner-send-button:disabled { opacity: .45; cursor: not-allowed; }
+.planner-disclaimer { margin: 10px 0 0; text-align: center; color: #9ca3af; font-size: 9px; }
+.planner-error { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 9px; padding: 10px 12px; border: 1px solid #fecaca; border-radius: 10px; background: #fef2f2; color: #b91c1c; font-size: 11px; }
+.planner-error button { border: 0; background: transparent; color: inherit; cursor: pointer; display: grid; place-items: center; }
+.planner-spin { animation: planner-spin 1s linear infinite; }
+@keyframes planner-spin { to { transform: rotate(360deg); } }
+.planner-modal-backdrop { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; padding: 20px; background: #0f172a66; }
+.planner-confirm-modal { width: min(420px, 100%); padding: 26px; border-radius: 18px; background: #fff; box-shadow: 0 24px 80px #0f172a30; }
+.planner-modal-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; color: #dc2626; background: #fef2f2; }
+.planner-confirm-modal h2 { margin: 18px 0 8px; color: #111827; font-size: 18px; letter-spacing: -.4px; }
+.planner-confirm-modal p { margin: 0; color: #6b7280; font-size: 12px; line-height: 1.7; }
+.planner-modal-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 24px; }
+.planner-modal-actions button { display: inline-flex; align-items: center; gap: 7px; padding: 10px 13px; border-radius: 9px; font: inherit; font-size: 11px; font-weight: 700; cursor: pointer; }
+.planner-modal-cancel { border: 1px solid #e5e7eb; background: #fff; color: #374151; }
+.planner-modal-delete { border: 1px solid #dc2626; background: #dc2626; color: #fff; }
+@media (max-width: 760px) {
+  .planner-shell { min-height: 520px; }
+  .planner-sidebar { width: 250px; min-width: 250px; position: absolute; z-index: 20; inset: 0 auto 0 0; box-shadow: 14px 0 30px #0f172a10; }
+  .planner-sidebar--collapsed { width: 0; min-width: 0; padding: 0; border: 0; overflow: hidden; }
+  .planner-sidebar--collapsed .planner-brand-row, .planner-sidebar--collapsed .planner-new-chat, .planner-sidebar--collapsed .planner-sidebar-bottom { display: none; }
+  .planner-expand-mobile { display: inline-grid; }
+  .planner-topbar { height: 72px; padding: 0 16px; }
+  .planner-secure-label { display: none; }
+  .planner-welcome { margin-top: 34px; width: calc(100% - 30px); }
+  .planner-welcome h2 { letter-spacing: -1.3px; }
+  .planner-prompt-grid { grid-template-columns: 1fr; }
+  .planner-messages { padding: 22px 15px; }
+  .planner-message-body { max-width: 92%; }
+  .planner-composer-wrap { width: calc(100% - 24px); padding-bottom: 10px; }
+  .planner-date-controls { gap: 6px; }
+  .planner-date-controls label { gap: 3px; }
+  .planner-date-controls input { width: 100px; }
+  .planner-send-button span { display: none; }
+}
+@media (max-width: 420px) {
+  .planner-date-controls label span { display: none; }
+  .planner-date-controls input { width: 94px; }
+  .planner-composer { padding-left: 12px; }
+}
+
+
+/* Travel date picker modal */
+.planner-date-open-button {
+  display: inline-flex; align-items: center; gap: 9px; max-width: 100%;
+  padding: 9px 11px; border: 1px solid #e5eaf1; border-radius: 10px;
+  background: #fff; color: #475569; font: inherit; font-size: 11px;
+  cursor: pointer; transition: border-color .15s, background .15s;
+}
+.planner-date-open-button:hover { border-color: #93c5fd; background: #f8fbff; }
+.planner-date-open-button svg:first-child { color: var(--planner-blue); flex: 0 0 auto; }
+.planner-date-open-button svg:last-child { color: #94a3b8; flex: 0 0 auto; }
+.planner-calendar-backdrop {
+  position: fixed; inset: 0; z-index: 1100; display: grid; place-items: center;
+  padding: 20px; background: #0f172a80; backdrop-filter: blur(3px);
+}
+.planner-calendar-modal {
+  position: relative; width: min(830px, 100%); max-height: min(90dvh, 820px);
+  overflow-y: auto; border: 1px solid #e5e7eb; border-radius: 22px;
+  background: #fff; box-shadow: 0 30px 100px #0f172a35;
+}
+.planner-calendar-close {
+  position: absolute; top: 18px; left: 18px; z-index: 2; display: grid;
+  place-items: center; width: 36px; height: 36px; border: 0; border-radius: 10px;
+  background: transparent; color: #64748b; cursor: pointer;
+}
+.planner-calendar-close:hover { background: #f1f5f9; color: #111827; }
+.planner-calendar-header { padding: 25px 24px 20px; text-align: center; border-bottom: 1px solid #eef2f7; }
+.planner-calendar-header h2 { margin: 0 0 17px; color: #111827; font-size: 22px; font-weight: 800; }
+.planner-calendar-mode { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; background: #f1f5f9; }
+.planner-calendar-mode button { padding: 9px 18px; border: 0; border-radius: 999px; background: transparent; color: #64748b; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.planner-calendar-mode button.is-active { background: #fff; color: var(--planner-blue-dark); box-shadow: 0 1px 4px #0f172a12; }
+.planner-calendar-navigation { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 22px 27px 10px; }
+.planner-calendar-navigation > button { display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: #64748b; cursor: pointer; }
+.planner-calendar-navigation > button:hover { background: #eff6ff; color: var(--planner-blue); }
+.planner-calendar-month-titles { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex: 1; text-align: center; }
+.planner-calendar-month-titles strong { color: #1f2937; font-size: 15px; }
+.planner-calendar-two-months { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 8px 38px 20px; }
+.planner-calendar-month h3 { display: none; }
+.planner-calendar-weekdays, .planner-calendar-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.planner-calendar-weekdays { margin-bottom: 9px; }
+.planner-calendar-weekdays span { display: grid; place-items: center; height: 27px; color: #9ca3af; font-size: 11px; font-weight: 700; }
+.planner-calendar-days { grid-auto-rows: 40px; }
+.planner-calendar-day { display: grid; place-items: center; min-width: 0; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #374151; font: inherit; font-size: 12px; cursor: pointer; }
+.planner-calendar-day:hover:not(:disabled) { background: #eff6ff; color: var(--planner-blue-dark); }
+.planner-calendar-day:disabled { color: #d1d5db; cursor: not-allowed; }
+.planner-calendar-day.is-selected { background: var(--planner-blue); color: #fff; font-weight: 800; }
+.planner-calendar-day.is-in-range { border-radius: 8px; background: #dbeafe; color: #1d4ed8; }
+.planner-calendar-day.is-selected.is-in-range { background: var(--planner-blue); color: #fff; border-radius: 50%; }
+.planner-calendar-day.is-today:not(.is-selected) { outline: 1px solid #93c5fd; outline-offset: -3px; }
+.planner-calendar-selection { display: flex; align-items: center; justify-content: center; gap: 22px; padding: 15px 24px; border-top: 1px solid #eef2f7; }
+.planner-calendar-selection div { display: flex; flex-direction: column; gap: 5px; min-width: 125px; }
+.planner-calendar-selection span { color: #9ca3af; font-size: 10px; }
+.planner-calendar-selection strong { color: #374151; font-size: 12px; }
+.planner-calendar-selection > svg { color: #94a3b8; }
+.planner-calendar-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 24px 22px; }
+.planner-calendar-clear { border: 0; background: transparent; color: #64748b; font: inherit; font-size: 12px; font-weight: 700; text-decoration: underline; cursor: pointer; }
+.planner-calendar-update { min-width: 150px; padding: 12px 20px; border: 0; border-radius: 999px; background: var(--planner-blue); color: #fff; font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
+.planner-calendar-update:hover:not(:disabled) { background: var(--planner-blue-dark); }
+.planner-calendar-update:disabled { opacity: .4; cursor: not-allowed; }
+.planner-calendar-flexible { min-height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 30px; text-align: center; color: var(--planner-blue); }
+.planner-calendar-flexible strong { color: #1f2937; font-size: 16px; }
+.planner-calendar-flexible p { max-width: 340px; margin: 0; color: #64748b; font-size: 12px; line-height: 1.7; }
+@media (max-width: 650px) {
+  .planner-calendar-backdrop { padding: 8px; }
+  .planner-calendar-modal { border-radius: 16px; max-height: 94dvh; }
+  .planner-calendar-header { padding-top: 24px; }
+  .planner-calendar-two-months { grid-template-columns: 1fr; gap: 20px; padding: 8px 22px 18px; }
+  .planner-calendar-month-titles { display: none; }
+  .planner-calendar-month h3 { display: block; margin: 0 0 12px; text-align: center; color: #1f2937; font-size: 14px; }
+  .planner-calendar-days { grid-auto-rows: 38px; }
+  .planner-calendar-selection { gap: 10px; padding-inline: 15px; }
+  .planner-calendar-selection div { min-width: 0; flex: 1; }
+  .planner-calendar-footer { padding: 15px; }
+  .planner-calendar-update { min-width: 120px; }
+}
+
+
+
+/* Weather confirmation actions — styled to match the existing Tripmate UI */
+.planner-weather-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.planner-weather-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 10px 15px;
+  border: 1px solid #dbeafe;
+  border-radius: 11px;
+  background: #fff;
+  color: #1d4ed8;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease,
+    box-shadow .15s ease, transform .15s ease;
+}
+
+.planner-weather-action:hover:not(:disabled) {
+  border-color: #93c5fd;
+  background: #f8fbff;
+  box-shadow: 0 3px 12px #2563eb12;
+  transform: translateY(-1px);
+}
+
+.planner-weather-action:focus-visible {
+  outline: 3px solid #bfdbfe;
+  outline-offset: 2px;
+}
+
+.planner-weather-action:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.planner-weather-action--primary {
+  border-color: var(--planner-blue);
+  background: var(--planner-blue);
+  color: #fff;
+}
+
+.planner-weather-action--primary:hover:not(:disabled) {
+  border-color: var(--planner-blue-dark);
+  background: var(--planner-blue-dark);
+}
+
+.planner-weather-action--secondary {
+  background: #fff;
+  color: #334155;
+  border-color: #dbe2ec;
+}
+
+.planner-weather-action--secondary:hover:not(:disabled) {
+  border-color: #93c5fd;
+  background: #f8fbff;
+  color: #1d4ed8;
+}
+
+@media (max-width: 650px) {
+  .planner-weather-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .planner-weather-action {
+    width: 100%;
+  }
+}
+
+/* Round-trip flight selection cards */
+.planner-flight-results{display:flex;flex-direction:column;gap:12px;margin-top:4px}.planner-flight-results-heading{display:flex;align-items:center;gap:10px;padding:2px 1px 5px}.planner-flight-results-icon,.planner-roundtrip-airline-icon{display:grid;place-items:center;flex:0 0 auto;width:36px;height:36px;border-radius:11px;background:#eff6ff;color:var(--planner-blue)}.planner-flight-results-heading>div:nth-child(2){display:flex;flex:1;min-width:0;flex-direction:column;gap:3px}.planner-flight-results-heading strong{color:#172033;font-size:13px;font-weight:800}.planner-flight-results-heading span:not(.planner-flight-results-count){color:#94a3b8;font-size:10px;line-height:1.5}.planner-flight-results-count{margin-left:auto;padding:5px 8px;border:1px solid #dbeafe;border-radius:999px;color:#1d4ed8;background:#f8fbff;font-size:10px;white-space:nowrap}.planner-flight-options{display:flex;flex-direction:column;gap:13px}.planner-roundtrip-card{overflow:hidden;border:1px solid #e2e8f0;border-radius:17px;background:#fff;box-shadow:0 3px 10px rgba(15,23,42,.035);transition:border-color .18s,box-shadow .18s,transform .18s}.planner-roundtrip-card:hover{border-color:#bfdbfe;box-shadow:0 9px 24px rgba(37,99,235,.08);transform:translateY(-1px)}.planner-roundtrip-card-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 16px;border-bottom:1px solid #eef2f7}.planner-roundtrip-airline{display:flex;align-items:center;gap:10px;min-width:0}.planner-roundtrip-airline>div{display:flex;flex-direction:column;gap:4px;min-width:0}.planner-roundtrip-airline strong{color:#1e293b;font-size:12px;font-weight:800;overflow-wrap:anywhere}.planner-roundtrip-airline>div>span{color:#94a3b8;font-size:10px}.planner-roundtrip-price{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:0 0 auto}.planner-roundtrip-price strong{color:#1d4ed8;font-size:17px;font-weight:850;letter-spacing:-.35px}.planner-roundtrip-price span{color:#94a3b8;font-size:9px}.planner-roundtrip-legs{display:flex;flex-direction:column;padding:12px}.planner-flight-leg{padding:13px;border:1px solid #e8eef7;border-radius:12px;background:#fbfdff}.planner-flight-leg--return{border-color:#dbeafe;background:#f3f7ff}.planner-flight-leg-label{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;color:#64748b;font-size:9px;font-weight:850;letter-spacing:.65px}.planner-flight-leg-label strong{color:#2563eb;font-size:10px;letter-spacing:0}.planner-flight-leg-airline{display:flex;align-items:center;gap:7px;margin-bottom:13px;color:#334155;font-size:10px}.planner-flight-airline-mark{display:grid;place-items:center;width:25px;height:25px;border-radius:8px;color:#2563eb;background:#eaf2ff}.planner-flight-route{display:grid;grid-template-columns:minmax(0,1fr) minmax(68px,.7fr) minmax(0,1fr);align-items:start;gap:8px}.planner-flight-endpoint{display:flex;flex-direction:column;gap:4px;min-width:0}.planner-flight-endpoint>strong{color:#172033;font-size:16px;line-height:1.2;font-weight:850}.planner-flight-endpoint>span{color:#475569;font-size:10px;line-height:1.45;overflow-wrap:anywhere}.planner-flight-endpoint small{color:#94a3b8;font-size:9px}.planner-flight-endpoint--arrival{text-align:right;align-items:flex-end}.planner-flight-route-middle{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding-top:6px;color:#60a5fa}.planner-flight-route-line{position:absolute;top:13px;left:0;right:0;border-top:1px dashed #bfdbfe}.planner-flight-route-middle>svg{position:relative;padding:2px;box-sizing:content-box;background:#fbfdff}.planner-flight-leg--return .planner-flight-route-middle>svg{background:#f3f7ff}.planner-flight-route-duration{display:inline-flex;align-items:center;justify-content:center;gap:3px;color:#64748b;font-size:9px;white-space:nowrap}.planner-flight-leg-date{display:flex;align-items:flex-start;gap:5px;margin-top:12px;padding-top:9px;border-top:1px solid #e8eef7;color:#94a3b8;font-size:9px;line-height:1.5}.planner-flight-leg-date svg{flex:0 0 auto;margin-top:1px}.planner-roundtrip-divider{display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 0;color:#94a3b8;font-size:9px}.planner-roundtrip-divider:before,.planner-roundtrip-divider:after{content:"";height:1px;flex:1;background:#eef2f7}.planner-flight-missing-return{padding:12px;border-radius:10px;color:#92400e;background:#fffbeb;font-size:10px;line-height:1.5}.planner-roundtrip-card-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 15px;border-top:1px solid #eef2f7;background:#fcfdff}.planner-roundtrip-card-footer>span{display:inline-flex;align-items:flex-start;gap:5px;color:#94a3b8;font-size:9px;line-height:1.5}.planner-roundtrip-card-footer>span svg{flex:0 0 auto;margin-top:1px}.planner-select-flight-button{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 12px;border:0;border-radius:9px;color:#fff;background:var(--planner-blue);font:inherit;font-size:10px;font-weight:800;cursor:pointer;transition:background .15s,transform .15s}.planner-select-flight-button:hover{background:var(--planner-blue-dark);transform:translateY(-1px)}.planner-select-flight-button:focus-visible{outline:3px solid #bfdbfe;outline-offset:2px}.planner-flight-missing-return{margin:0}
+@media(max-width:560px){.planner-roundtrip-card-header{align-items:flex-start;padding:12px}.planner-roundtrip-price strong{font-size:14px}.planner-roundtrip-legs{padding:9px}.planner-flight-leg{padding:10px}.planner-flight-route{grid-template-columns:minmax(0,1fr) 52px minmax(0,1fr);gap:5px}.planner-flight-endpoint>strong{font-size:14px}.planner-flight-endpoint>span{font-size:9px}.planner-roundtrip-card-footer{align-items:stretch}.planner-select-flight-button{width:100%}}
+
+
+/* Passenger details -> booking review confirmation */
+.planner-booking-confirmation { display: flex; flex-direction: column; gap: 12px; }
+.planner-booking-confirmation-icon { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; color: #2563eb; background: #eff6ff; }
+.planner-booking-confirmation h3 { margin: 0; color: #0f172a; font-size: 22px; line-height: 1.3; font-weight: 750; }
+.planner-booking-confirmation-intro { margin: 0; color: #64748b; font-size: 13px; line-height: 1.6; }
+.planner-booking-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 14px; border: 1px solid #e2e8f0; border-radius: 14px; background: #f8fafc; }
+.planner-booking-summary > div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.planner-booking-summary span { color: #64748b; font-size: 11px; }
+.planner-booking-summary strong { color: #0f172a; font-size: 13px; font-weight: 650; overflow-wrap: anywhere; text-transform: capitalize; }
+.planner-booking-confirmation-notice { padding: 12px 14px; border: 1px solid #bfdbfe; border-radius: 12px; background: #eff6ff; color: #1e40af; }
+.planner-booking-confirmation-notice strong { font-size: 12px; }
+.planner-booking-confirmation-notice p { margin: 4px 0 0; font-size: 12px; line-height: 1.5; }
+.planner-booking-confirmation .planner-passenger-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.planner-passenger-success button { display: inline-flex; align-items: center; gap: 8px; }
+@media (max-width: 560px) { .planner-booking-summary { grid-template-columns: minmax(0, 1fr); } .planner-booking-confirmation .planner-passenger-actions { flex-direction: column-reverse; } .planner-booking-confirmation .planner-passenger-actions button { width: 100%; justify-content: center; } }
+
+
+/* Passenger details modal — styles for the current Planner.jsx structure */
+.planner-passenger-modal{position:relative;width:min(560px,100%);max-height:min(88dvh,780px);overflow-y:auto;padding:24px;border:1px solid #e2e8f0;border-radius:20px;background:#fff;color:#172033;box-shadow:0 24px 80px rgba(15,23,42,.22)}
+.planner-passenger-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding-bottom:18px;margin-bottom:20px;border-bottom:1px solid #eef2f7}
+.planner-passenger-header>div{min-width:0}.planner-passenger-eyebrow{display:block;margin-bottom:7px;color:#2563eb;font-size:10px;font-weight:850;letter-spacing:1px}
+.planner-passenger-header h2{margin:0;color:#111827;font-size:23px;line-height:1.3;font-weight:800}.planner-passenger-header p{margin:7px 0 0;color:#64748b;font-size:12px;line-height:1.6}
+.planner-passenger-close{display:grid;place-items:center;flex:0 0 auto;width:36px;height:36px;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#64748b;cursor:pointer}
+.planner-passenger-close:hover{background:#f8fafc;color:#0f172a}
+.planner-passenger-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 13px}
+.planner-passenger-grid label{display:flex;flex-direction:column;gap:7px;min-width:0;color:#334155;font-size:12px;font-weight:700}.planner-passenger-grid label>span{color:#dc2626}.planner-passenger-grid label small{color:#94a3b8;font-size:10px;font-weight:400;line-height:1.4}
+.planner-passenger-grid input,.planner-passenger-grid select{box-sizing:border-box;width:100%;min-width:0;min-height:42px;padding:10px 11px;border:1px solid #dbe2ec;border-radius:10px;outline:none;background:#fff;color:#172033;font:inherit;font-size:12px}
+.planner-passenger-grid input:focus,.planner-passenger-grid select:focus{border-color:#60a5fa;box-shadow:0 0 0 3px rgba(59,130,246,.12)}
+.planner-passenger-note{margin-top:17px;padding:11px 12px;border-radius:10px;background:#f8fafc;color:#64748b;font-size:11px;line-height:1.6}
+.planner-passenger-actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:10px;margin-top:20px}.planner-passenger-actions button,.planner-passenger-success button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:10px 14px;border:1px solid transparent;border-radius:10px;font:inherit;font-size:12px;font-weight:750;cursor:pointer}
+.planner-modal-cancel{border-color:#dbe2ec!important;background:#fff;color:#475569}.planner-passenger-submit,.planner-passenger-success button{background:#2563eb;color:#fff}.planner-passenger-submit:hover,.planner-passenger-success button:hover{background:#1d4ed8}
+.planner-passenger-success{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:4px 0}.planner-passenger-success strong{color:#166534;font-size:14px}.planner-passenger-success p{margin:0 0 4px;color:#64748b;font-size:12px;line-height:1.6}
+.planner-booking-confirmation{display:flex;flex-direction:column;gap:12px}.planner-booking-confirmation-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:#eff6ff;color:#2563eb}.planner-booking-confirmation h3{margin:0;color:#0f172a;font-size:22px;line-height:1.3;font-weight:800}.planner-booking-confirmation-intro{margin:0;color:#64748b;font-size:12px;line-height:1.6}
+.planner-booking-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:14px;border:1px solid #e2e8f0;border-radius:13px;background:#f8fafc}.planner-booking-summary>div{display:flex;flex-direction:column;gap:5px;min-width:0}.planner-booking-summary span{color:#64748b;font-size:10px}.planner-booking-summary strong{color:#0f172a;font-size:12px;font-weight:700;overflow-wrap:anywhere;text-transform:capitalize}
+.planner-booking-confirmation-notice{padding:12px 13px;border:1px solid #bfdbfe;border-radius:11px;background:#eff6ff;color:#1e40af}.planner-booking-confirmation-notice strong{font-size:11px}.planner-booking-confirmation-notice p{margin:4px 0 0;font-size:11px;line-height:1.6}.planner-booking-confirmation .planner-passenger-actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:10px;margin-top:3px}
+@media(max-width:560px){.planner-modal-backdrop{padding:12px}.planner-passenger-modal{padding:18px;border-radius:16px;max-height:94dvh}.planner-passenger-grid,.planner-booking-summary{grid-template-columns:minmax(0,1fr)}.planner-passenger-actions{flex-direction:column-reverse}.planner-passenger-actions button{width:100%}}
+
+
+/* My Travels sidebar and booking history views */
+.planner-travel-section { display: flex; flex-direction: column; gap: 4px; margin: 0 0 18px; }
+.planner-travel-heading { padding-top: 2px; }
+.planner-travel-link { width: 100%; display: flex; align-items: center; gap: 11px; padding: 11px 10px; border: 0; border-radius: 9px; background: transparent; color: #475569; font: inherit; text-align: left; cursor: pointer; }
+.planner-travel-link span { font-size: 13px; }
+.planner-travel-link svg { flex: 0 0 auto; color: #64748b; }
+.planner-travel-link:hover, .planner-travel-link.is-active { background: #eaf2ff; color: #1d4ed8; }
+.planner-travel-link.is-active { font-weight: 700; }
+.planner-travel-link.is-active svg { color: #2563eb; }
+.planner-sidebar--collapsed .planner-travel-link { justify-content: center; padding-inline: 0; }
+.planner-travel-view { flex: 1; min-height: 0; overflow-y: auto; padding: 26px clamp(20px, 5vw, 64px) 40px; background: #fff; }
+.planner-travel-view-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 auto 25px; max-width: 900px; }
+.planner-travel-back, .planner-travel-refresh { display: inline-flex; align-items: center; gap: 7px; border: 1px solid #e2e8f0; border-radius: 9px; background: #fff; color: #475569; padding: 9px 12px; font: inherit; font-size: 12px; cursor: pointer; }
+.planner-travel-back:hover, .planner-travel-refresh:hover:not(:disabled) { border-color: #bfdbfe; background: #f8fbff; color: #1d4ed8; }
+.planner-travel-refresh:disabled { opacity: .6; cursor: wait; }
+.planner-travel-title-row { max-width: 900px; margin: 0 auto 25px; display: flex; align-items: center; gap: 14px; }
+.planner-travel-title-icon { width: 48px; height: 48px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 15px; color: #2563eb; background: #eff6ff; border: 1px solid #dbeafe; }
+.planner-travel-eyebrow { margin: 0 0 5px; color: #2563eb; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; }
+.planner-travel-title-row h2 { margin: 0; font-size: 23px; letter-spacing: -.5px; }
+.planner-travel-subtitle { margin: 6px 0 0; color: #64748b; font-size: 12px; }
+.planner-travel-booking-list { max-width: 900px; margin: 0 auto; display: grid; gap: 15px; }
+.planner-travel-booking-card { overflow: hidden; border: 1px solid #e2e8f0; border-radius: 16px; background: #fff; box-shadow: 0 7px 24px #0f172a08; }
+.planner-travel-card-head { display: flex; align-items: center; gap: 12px; padding: 17px 18px; border-bottom: 1px solid #eef2f7; }
+.planner-travel-card-icon { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px; color: #2563eb; background: #eff6ff; flex: 0 0 auto; }
+.planner-travel-card-heading { flex: 1; min-width: 0; }
+.planner-travel-card-heading h3 { margin: 0; font-size: 14px; font-weight: 800; overflow-wrap: anywhere; }
+.planner-travel-card-heading p { margin: 5px 0 0; color: #64748b; font-size: 11px; }
+.planner-booking-status { max-width: 130px; padding: 6px 9px; border: 1px solid #e2e8f0; border-radius: 999px; color: #475569; background: #f8fafc; font-size: 9px; font-weight: 800; text-transform: uppercase; overflow-wrap: anywhere; }
+.planner-booking-status.is-confirmed { color: #15803d; border-color: #bbf7d0; background: #f0fdf4; }
+.planner-travel-card-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 16px 18px 18px; }
+.planner-travel-card-details > div { min-width: 0; padding: 11px 12px; border: 1px solid #e5eaf1; border-radius: 10px; background: #f8fafc; }
+.planner-travel-card-details span { display: block; margin-bottom: 6px; color: #64748b; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .35px; }
+.planner-travel-card-details strong { display: block; color: #111827; font-size: 11px; overflow-wrap: anywhere; }
+.planner-travel-state, .planner-travel-empty { max-width: 900px; margin: 35px auto; padding: 48px 20px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; color: #64748b; text-align: center; border: 1px dashed #dbe3ed; border-radius: 16px; background: #fbfdff; font-size: 12px; }
+.planner-travel-empty-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 15px; color: #2563eb; background: #eff6ff; }
+.planner-travel-empty h3 { margin: 0; color: #111827; font-size: 16px; }
+.planner-travel-empty p { margin: 0; }
+.planner-travel-empty button { margin-top: 5px; padding: 10px 15px; border: 0; border-radius: 9px; background: #2563eb; color: #fff; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.planner-travel-error { max-width: 900px; margin: 20px auto; padding: 14px 16px; border: 1px solid #fecaca; border-radius: 12px; background: #fef2f2; color: #b91c1c; font-size: 12px; }
+@media (max-width: 600px) { .planner-travel-view { padding: 18px 14px 28px; } .planner-travel-card-details { grid-template-columns: 1fr; } .planner-travel-card-head { align-items: flex-start; flex-wrap: wrap; } .planner-booking-status { margin-left: 52px; } }
+/* Expandable flight-booking details; appended without replacing existing styles. */
+.planner-travel-details-toggle{display:inline-flex;align-items:center;gap:9px;border:0;background:transparent;color:#155eef;font:inherit;font-weight:650;padding:14px 2px 4px;margin-top:2px;cursor:pointer}
+.planner-travel-details-toggle:hover{color:#1247b8}
+.planner-travel-details-toggle:focus-visible{outline:2px solid #2563eb;outline-offset:4px;border-radius:5px}
+.planner-travel-expanded-details{margin-top:16px;padding:22px;border-radius:16px;background:#f8fafc;border:1px solid #e2e8f0}
+.planner-travel-expanded-details>h3{margin:0 0 20px;font-size:17px}
+.planner-travel-journey-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.planner-travel-journey{min-width:0}
+.planner-travel-journey h4,.planner-travel-passengers h4{margin:0 0 13px;font-size:14px}
+.planner-travel-journey-route{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px;padding:17px;border:1px solid #e2e8f0;border-radius:12px;background:#fff}
+.planner-travel-journey-route>div{min-width:0;display:flex;flex-direction:column;gap:7px}
+.planner-travel-journey-route>div:last-child{text-align:right}
+.planner-travel-journey-route span,.planner-travel-expanded-meta>div span{color:#64748b;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.035em}
+.planner-travel-journey-route strong{overflow-wrap:anywhere;font-size:13px}
+.planner-travel-journey-route small{color:#64748b;line-height:1.45;font-size:11px}
+.planner-travel-journey-route>svg{color:#2563eb}
+.planner-travel-segment{display:grid;gap:5px;margin-top:9px;padding:12px 14px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;font-size:12px;overflow-wrap:anywhere}
+.planner-travel-segment span,.planner-travel-detail-note{color:#64748b}
+.planner-travel-detail-note{margin:12px 0 0;font-size:12px;line-height:1.6}
+.planner-travel-expanded-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid #e2e8f0}
+.planner-travel-expanded-meta>div{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0;padding:14px;border:1px solid #e2e8f0;border-radius:11px;background:#fff}
+.planner-travel-expanded-meta>div strong{font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.planner-travel-passengers{margin-top:24px;padding-top:20px;border-top:1px solid #e2e8f0}
+.planner-travel-passengers-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.planner-travel-section-eyebrow{display:block;color:#155eef;font-size:10px;font-weight:750;letter-spacing:.12em;margin-bottom:7px}
+.planner-travel-count{padding:7px 10px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:650;white-space:nowrap}
+.planner-travel-passenger-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.planner-travel-passenger-card{display:flex;align-items:flex-start;gap:12px;min-width:0;padding:15px;border:1px solid #e2e8f0;border-radius:13px;background:#fff}
+.planner-travel-passenger-avatar{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border-radius:50%;background:#eaf2ff;color:#155eef;font-weight:750}
+.planner-travel-passenger-copy{display:flex;flex-direction:column;gap:7px;min-width:0;font-size:12px;overflow-wrap:anywhere}
+.planner-travel-passenger-copy>span{color:#64748b}
+@media(max-width:760px){.planner-travel-journey-grid,.planner-travel-passenger-list,.planner-travel-expanded-meta{grid-template-columns:minmax(0,1fr)}.planner-travel-expanded-details{padding:14px}.planner-travel-journey-route{gap:8px;padding:12px}}
+
+.planner-travel-currency-note{display:block;margin-top:3px;color:#64748b;font-size:10px;font-weight:400}

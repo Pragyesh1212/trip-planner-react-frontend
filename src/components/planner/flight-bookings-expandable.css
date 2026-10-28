@@ -1,0 +1,32 @@
+\n\n/* Expandable flight-booking details; appended without replacing existing styles. */
+.planner-travel-details-toggle{display:inline-flex;align-items:center;gap:9px;border:0;background:transparent;color:#155eef;font:inherit;font-weight:650;padding:14px 2px 4px;margin-top:2px;cursor:pointer}
+.planner-travel-details-toggle:hover{color:#1247b8}
+.planner-travel-details-toggle:focus-visible{outline:2px solid #2563eb;outline-offset:4px;border-radius:5px}
+.planner-travel-expanded-details{margin-top:16px;padding:22px;border-radius:16px;background:#f8fafc;border:1px solid #e2e8f0}
+.planner-travel-expanded-details>h3{margin:0 0 20px;font-size:17px}
+.planner-travel-journey-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.planner-travel-journey{min-width:0}
+.planner-travel-journey h4,.planner-travel-passengers h4{margin:0 0 13px;font-size:14px}
+.planner-travel-journey-route{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px;padding:17px;border:1px solid #e2e8f0;border-radius:12px;background:#fff}
+.planner-travel-journey-route>div{min-width:0;display:flex;flex-direction:column;gap:7px}
+.planner-travel-journey-route>div:last-child{text-align:right}
+.planner-travel-journey-route span,.planner-travel-expanded-meta>div span{color:#64748b;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.035em}
+.planner-travel-journey-route strong{overflow-wrap:anywhere;font-size:13px}
+.planner-travel-journey-route small{color:#64748b;line-height:1.45;font-size:11px}
+.planner-travel-journey-route>svg{color:#2563eb}
+.planner-travel-segment{display:grid;gap:5px;margin-top:9px;padding:12px 14px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;font-size:12px;overflow-wrap:anywhere}
+.planner-travel-segment span,.planner-travel-detail-note{color:#64748b}
+.planner-travel-detail-note{margin:12px 0 0;font-size:12px;line-height:1.6}
+.planner-travel-expanded-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid #e2e8f0}
+.planner-travel-expanded-meta>div{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0;padding:14px;border:1px solid #e2e8f0;border-radius:11px;background:#fff}
+.planner-travel-expanded-meta>div strong{font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.planner-travel-passengers{margin-top:24px;padding-top:20px;border-top:1px solid #e2e8f0}
+.planner-travel-passengers-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.planner-travel-section-eyebrow{display:block;color:#155eef;font-size:10px;font-weight:750;letter-spacing:.12em;margin-bottom:7px}
+.planner-travel-count{padding:7px 10px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:650;white-space:nowrap}
+.planner-travel-passenger-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.planner-travel-passenger-card{display:flex;align-items:flex-start;gap:12px;min-width:0;padding:15px;border:1px solid #e2e8f0;border-radius:13px;background:#fff}
+.planner-travel-passenger-avatar{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border-radius:50%;background:#eaf2ff;color:#155eef;font-weight:750}
+.planner-travel-passenger-copy{display:flex;flex-direction:column;gap:7px;min-width:0;font-size:12px;overflow-wrap:anywhere}
+.planner-travel-passenger-copy>span{color:#64748b}
+@media(max-width:760px){.planner-travel-journey-grid,.planner-travel-passenger-list,.planner-travel-expanded-meta{grid-template-columns:minmax(0,1fr)}.planner-travel-expanded-details{padding:14px}.planner-travel-journey-route{gap:8px;padding:12px}}

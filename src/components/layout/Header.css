@@ -1,0 +1,164 @@
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid #edf0f5;
+}
+
+.nav-container {
+  max-width: 1280px;
+  height: 78px;
+  padding: 0 32px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: #101828;
+  font-size: 23px;
+  font-weight: 850;
+  letter-spacing: -1.2px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand-icon {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  color: white;
+  background: #245cff;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(36, 92, 255, 0.2);
+}
+
+.brand-accent {
+  color: #245cff;
+}
+
+.nav-links,
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-links > a,
+.nav-login {
+  color: #596579;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-links > a:hover,
+.nav-login:hover {
+  color: #245cff;
+}
+
+.nav-actions {
+  gap: 22px;
+}
+
+.nav-signup {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 46px;
+  padding: 0 21px;
+  color: white;
+  background: #245cff;
+  border: 1px solid #245cff;
+  border-radius: 13px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.nav-signup:hover {
+  background: #1748dc;
+  box-shadow: 0 8px 20px rgba(36, 92, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.mobile-auth,
+.menu-toggle {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .nav-container {
+    height: 70px;
+    padding: 0 19px;
+  }
+
+  .brand {
+    font-size: 21px;
+  }
+
+  .brand-icon {
+    width: 39px;
+    height: 39px;
+  }
+
+  .nav-actions {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    background: white;
+    border: 1px solid #e5eaf2;
+    border-radius: 12px;
+    color: #101828;
+    cursor: pointer;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    padding: 22px;
+    background: white;
+    border-bottom: 1px solid #e8edf5;
+    box-shadow: 0 15px 30px rgba(16, 24, 40, 0.07);
+  }
+
+  .nav-links.nav-open {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 23px;
+  }
+
+  .mobile-auth {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding-top: 17px;
+    border-top: 1px solid #edf0f5;
+  }
+
+  .mobile-auth .nav-signup {
+    justify-content: center;
+  }
+}
