@@ -30,14 +30,34 @@ const titleFromMessage = (message) => {
   return clean.length > 42 ? `${clean.slice(0, 39)}…` : clean || "New Trip";
 };
 
+
 const getTripDestination = (messages, title = "") => {
-  const candidates = [title, ...(messages || []).filter((item) => item.role === "user").map((item) => item.content || "")];
+  const candidates = [
+    title,
+    ...(messages || []).map((item) => item.content || ""),
+  ];
+
+  const patterns = [
+    /\btrip\s+to\s+([A-Za-z][A-Za-z .'-]*?)(?=\s+(?:under|for|from|on|between|with|budget)|[,.!?]|$)/i,
+    /\btravel\s+to\s+([A-Za-z][A-Za-z .'-]*?)(?=\s+(?:under|for|from|on|between|with|budget)|[,.!?]|$)/i,
+    /\bdestination\s*(?:is|:)\s*([A-Za-z][A-Za-z .'-]*?)(?=\s+(?:under|for|from|on|between|with|budget)|[,.!?]|$)/i,
+  ];
+
   for (const candidate of candidates) {
-    const match = String(candidate).match(/\btrip\s+to\s+([A-Za-z][A-Za-z .’'’-]*?)(?=\s+(?:under|for|from|on|between|with|budget)|[,.!?]|$)/i);
-    if (match?.[1]) return match[1].trim();
+    const text = String(candidate);
+
+    for (const pattern of patterns) {
+      const match = text.match(pattern);
+
+      if (match?.[1]) {
+        return match[1].trim();
+      }
+    }
   }
+
   return "";
 };
+
 
 function Planner() {
   const [authorized, setAuthorized] = useState(Boolean(sessionStorage.getItem("access_token")));
@@ -309,6 +329,13 @@ function Planner() {
         if (!destination || !checkin || !checkout) {
           throw new Error(`To search hotels, I need the trip destination and both stay dates. Destination: ${destination || "missing"}; check-in: ${checkin || "missing"}; check-out: ${checkout || "missing"}.`);
         }
+        console.log("Hotel search debug:", {
+          destination,
+          checkin,
+          checkout,
+          previousMessages,
+          conversationTitle: activeConversation?.title,
+        });
         response = await plannerService.searchHotels({
           destination,
           checkin,
